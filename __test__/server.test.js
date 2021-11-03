@@ -31,17 +31,17 @@ describe('server testing',()=>{
 
   // test if can read
 
-  it('can get all food', async () => {
+  it('can get all ', async () => {
 
-    const response = await mockReq.get('/food');
+    const response = await mockReq.get('/people');
 
     expect(response.status).toBe(200);
 
   });
 
-  // test if can read one food
-  it('can get one food', async () => {
-    const response = await mockReq.get('/food').send({
+  // test if can read one 
+  it('can get one ', async () => {
+    const response = await mockReq.get('/people').send({
       name: 'sandwich',
       
      });
@@ -50,9 +50,9 @@ describe('server testing',()=>{
 
   });
 
-  it('can add a food', async () => {
+  it('can add ', async () => {
 
-    const response = await mockReq.post('/food').send({
+    const response = await mockReq.post('/people').send({
      name: 'sandwich',
      
     });
@@ -70,9 +70,10 @@ describe('server testing',()=>{
   //    expect(response.status).toBe(201);
 
   // });
-  // test if can delete a food
+  
+  // test if can delete 
   it('can delete a record', async () => {
-    const response = await mockReq.delete('/food/3').send({
+    const response = await mockReq.delete('/people/3').send({
        id:3
      });
  
