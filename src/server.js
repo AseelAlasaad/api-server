@@ -25,7 +25,7 @@ app.get('/home',(req,res)=>{
 })
 
 app.get('/error',(req,res,next)=>{
-  // next("you made error")
+
   throw new Error('You made an error');
 })
 

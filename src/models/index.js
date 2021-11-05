@@ -13,6 +13,7 @@ let sequelizeOptions=process.env.NODE_ENV==='production'? {
   }
 }:{};
 
+
 let sequelize=new Sequelize(POSTGRES_URI,sequelizeOptions);
 
 const food=require('./food');
@@ -21,6 +22,7 @@ const clothes=require('./clothes');
 
 const foodmodel=food(sequelize,DataTypes);
 const clothesmodel=clothes(sequelize,DataTypes);
+
 
 
 foodmodel.hasMany(clothesmodel,{foreignKey:'foodId',sourceKey:'id'});
