@@ -1,6 +1,6 @@
 'use strict';
 
-const POSTGRES_URI = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' : process.env.HEROKU_POSTGRESQL_SILVER_URL||process.env.DATABASE_URL;
+const POSTGRES_URI = process.env.NODE_ENV === 'test' ? 'sqlite:memory:' :process.env.DATABASE_URL;
 
 const { Sequelize, DataTypes } = require('sequelize');
 
@@ -15,27 +15,24 @@ let sequelizeOptions=process.env.NODE_ENV==='production'? {
 
 let sequelize=new Sequelize(POSTGRES_URI,sequelizeOptions);
 
-// const foodschema=require('./food');
-// const clothesSchema=require('./clothes');
-const peoplemodel=require('./people.schema');
-const addressmodel=require('./address.schema');
+const food=require('./food');
+const clothes=require('./clothes');
 
-// const foodmodel=foodschema(sequelize,DataTypes);
-// const clothesmodel=clothesSchema(sequelize,DataTypes);
-const people=peoplemodel(sequelize,DataTypes);
-const address=addressmodel(sequelize,DataTypes);
 
-people.hasMany(address,{foreignKey:'peopleId',sourceKey:'id'});
-address.belongsTo(people,{foreignKey:'peopleId',targetKey:'id'});
+const foodmodel=food(sequelize,DataTypes);
+const clothesmodel=clothes(sequelize,DataTypes);
+
+
+foodmodel.hasMany(clothesmodel,{foreignKey:'foodId',sourceKey:'id'});
+clothesmodel.belongsTo(foodmodel,{foreignKey:'foodId',targetKey:'id'});
 
 const Collection= require('./lib/collection');
 
-
-const peopleCollection= new Collection(people);
-const addressCollection= new Collection(address);
+const clothesCollection= new Collection(clothesmodel);
+const foodCollection= new Collection(foodmodel);
 
 module.exports={
     db:sequelize,
-    peopleCollection:peopleCollection,
-    addressCollection:addressCollection
+    clothesCollection:clothesCollection,
+    foodCollection:foodCollection
 }
