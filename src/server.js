@@ -3,7 +3,7 @@ const express=require('express');
 const app= express();
 require('dotenv').config();
 
-const PORT=process.env.PORT||3014;
+const PORT=process.env.PORT||3000;
 const logger=require('./middleware/logger');
 const querystring=require('./middleware/validator');
 const notfound=require('./error-handlers/404');
